@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-MAINTAINER Yanghong Zhong <nju_yaho@apache.org>
+MAINTAINER Mohammad Esmaeili <momhiar@gmail.com>
 
 WORKDIR /tmp
 
