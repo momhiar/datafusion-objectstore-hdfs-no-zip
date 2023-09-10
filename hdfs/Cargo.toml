@@ -18,7 +18,7 @@
 [package]
 name = "datafusion-objectstore-hdfs-no-test"
 version = "0.1.4"
-edition = "2023"
+edition = "2021"
 
 description = "A hdfs object store implemented the object store without zip test"
 authors = ["Yanghong Zhong <nju_yaho@apache.org>", "Mohammad Esmaeili <momhiar@gmail.com>"]
