@@ -1,3 +1,5 @@
+## this fork is used for personal project andfroked from original branch. in this fork we have removed automation test for another application developments.
+
 # datafusion-objectstore-hdfs
 
 HDFS as a remote ObjectStore for [Datafusion](https://github.com/apache/arrow-datafusion).
