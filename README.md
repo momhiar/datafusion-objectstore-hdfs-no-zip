@@ -1,4 +1,4 @@
-## this fork is used for personal project andfroked from original branch. in this fork we have removed automation test for another application developments.
+## this fork is used for personal project and froked from original branch. in this fork we have removed automation test for another application developments.
 
 # datafusion-objectstore-hdfs
 
