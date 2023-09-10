@@ -16,12 +16,12 @@
 # under the License.
 
 [package]
-name = "datafusion-objectstore-hdfs"
+name = "datafusion-objectstore-hdfs-no-test"
 version = "0.1.4"
-edition = "2021"
+edition = "2023"
 
-description = "A hdfs object store implemented the object store"
-authors = ["Yanghong Zhong <nju_yaho@apache.org>"]
+description = "A hdfs object store implemented the object store without zip test"
+authors = ["Yanghong Zhong <nju_yaho@apache.org>", "Mohammad Esmaeili <momhiar@gmail.com>"]
 license = "Apache-2.0"
 readme = "../README.md"
 keywords = [
@@ -30,7 +30,7 @@ keywords = [
     "hdfs3",
     "store",
 ]
-repository = "https://github.com/datafusion-contrib/datafusion-objectstore-hdfs"
+repository = "https://github.com/momhiar/datafusion-objectstore-hdfs-no-zip"
 
 [features]
 default = ["hdfs", "try_spawn_blocking"]
