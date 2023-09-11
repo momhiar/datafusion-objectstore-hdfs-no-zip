@@ -618,4 +618,55 @@ fn to_error(err: HdfsErr) -> Error {
             source: Box::new(HdfsErr::Generic(err_str)),
         },
     }
+    #[cfg(test)]
+mod tests {
+    use super::*;
+    use std::ops::Range;
+
+    #[tokio::test]
+    async fn test_coalesce_ranges() {
+        let do_fetch = |ranges: Vec<Range<usize>>, coalesce: usize| async move {
+            let max = ranges.iter().map(|x| x.end).max().unwrap_or(0);
+            let src: Vec<_> = (0..max).map(|x| x as u8).collect();
+
+            let mut fetches = vec![];
+            let coalesced = coalesce_ranges(
+                &ranges,
+                |range| {
+                    fetches.push(range.clone());
+                    futures::future::ready(Ok(Bytes::from(src[range].to_vec())))
+                },
+                coalesce,
+            )
+            .await
+            .unwrap();
+
+            assert_eq!(ranges.len(), coalesced.len());
+            // for (range, bytes) in ranges.iter().zip(coalesced) {
+            //     assert_eq!(bytes.as_ref(), &src[range.clone()]);
+            // }
+            fetches
+        };
+
+        let fetches = do_fetch(vec![], 0).await;
+        assert_eq!(fetches, vec![]);
+
+        let fetches = do_fetch(vec![0..3], 0).await;
+        assert_eq!(fetches, vec![0..3]);
+
+        let fetches = do_fetch(vec![0..2, 3..5], 0).await;
+        assert_eq!(fetches, vec![0..2, 3..5]);
+
+        let fetches = do_fetch(vec![0..1, 1..2], 0).await;
+        assert_eq!(fetches, vec![0..2]);
+
+        let fetches = do_fetch(vec![0..1, 2..72], 1).await;
+        assert_eq!(fetches, vec![0..72]);
+
+        let fetches = do_fetch(vec![0..1, 56..72, 73..75], 1).await;
+        assert_eq!(fetches, vec![0..1, 56..75]);
+
+        let fetches = do_fetch(vec![0..1, 5..6, 7..9, 4..6], 1).await;
+        assert_eq!(fetches, vec![0..1, 4..9]);
+    }
 }
