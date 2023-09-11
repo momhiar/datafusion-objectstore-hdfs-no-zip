@@ -618,7 +618,8 @@ fn to_error(err: HdfsErr) -> Error {
             source: Box::new(HdfsErr::Generic(err_str)),
         },
     }
-    #[cfg(test)]
+}
+#[cfg(test)]
 mod tests {
     use super::*;
     use std::ops::Range;
